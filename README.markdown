@@ -59,7 +59,7 @@ Patches are created using ```git format-patch```, and can be applied using ```gi
 
 ```git-uncommit``` and ```git-recommit``` are stand-alone shell scripts, simply requiring Git to be installed.
 
-In a Unix or Linux system, you can quickly install ```git-recommit``` and ```git-uncommit``` by copying the files to /usr/local/bin.
+In a Unix or Linux system, you can quickly install ```git-recommit``` and ```git-uncommit``` by copying the files to ```/usr/local/bin```.
 
 ## Author and licensing terms
 
