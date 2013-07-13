@@ -4,7 +4,7 @@
 
 ```git-recommit``` applies back the last uncommitted patch; after the patch is applied, the patch file is deleted.
 
-## Usage:
+## Usage
 
 Let's suppose after much work you have just committed experimental changes to your branch.
 
@@ -43,7 +43,7 @@ Patches can be readily edited, shared with others and applied in a new order.
 
 Patches are created using ```git format-patch```, and can be applied using ```git am```, in addition to ```git-uncommit```
 
-## Comparison with related Git commands:
+## Comparison with related Git commands
 
 ```git stash``` can sometimes be used for similar purposes as ```git-uncommit```, the differences are:
 * ```git stash``` operates on changes to the work tree or index, not already committed changes
