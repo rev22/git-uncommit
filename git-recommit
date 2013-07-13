@@ -37,6 +37,11 @@ if [ -z "$f" ]; then
 	f="$(tail -n1 .uncommitted-patches|sed "s/^Uncommit: //")"
 	sed -i "$ d" .uncommitted-patches
     fi
+
+    # Delete .uncommitted-patches if it's empty
+    if [ -e .uncommitted-patches ]; then
+	[ -s .uncommitted-patches ] || rm .uncommitted-patches
+    fi
 fi
 
 if [ -z "$f" ]; then
