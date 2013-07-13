@@ -41,7 +41,7 @@ $ git-recommit <patch-file>.patch
 
 Patches can be readily edited, shared with others and applied in a new order.
 
-Patches are created using ```git format-patch```
+Patches are created using ```git format-patch```, and can be applied using ```git am```, in addition to ```git-uncommit```
 
 ## Comparison with related git commands:
 
