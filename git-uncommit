@@ -1,0 +1,61 @@
+#!/bin/sh
+
+# Copyright (c) 2013 Michele Bini
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the version 3 of the GNU General Public License
+# as published by the Free Software Foundation.
+
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+set -e
+
+println() {
+    printf "%s\n" "$*"
+}
+
+warn() {
+    println "$0: $*" >&2
+}
+
+die() {
+    warn "$*"
+    exit 1
+}
+
+namecommit() {
+    (git show "$1"|git patch-id|head --bytes=7; git show "$1"|head -n5|tail -n1)|sed -E "; s/[^a-zA-Z0-9]+/ /g; s/^ //; s/ $//; s/ /-/g"|head --bytes=40|tr A-Z a-z|sed "s/-$//"
+}
+
+branchname() {
+  git branch|sed -n "s/[*] //p"
+}
+
+selectbranch() {
+  git symbolic-ref HEAD refs/heads/"$1"
+}
+
+f="$(namecommit HEAD)"
+[ -z "f" ] && die "Internal error: Could not create patch name"
+f="$f".patch
+
+# gitdir="$(git rev-parse --git-dir)"
+# t="$(git rev-parse --show-toplevel)"
+# cd "$t"
+
+git format-patch --binary -M70% -C70% -N -1 --stdout >"$f"
+
+b="$(branchname)"
+
+git checkout --quiet --detach HEAD^
+
+println "Uncommit: $f"
+println "Uncommit: $f" >>.uncommitted-patches
+
+[ -n "$b" ] && selectbranch "$b" && git reset --soft HEAD^
