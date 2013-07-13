@@ -46,14 +46,14 @@ Patches are created using ```git format-patch```, and can be applied using ```gi
 ## Comparison with related git commands:
 
 ```git stash``` can sometimes be used for similar purposes as ```git-uncommit```, the differences are:
-* git stash operates on changes to the work tree or index, not already committed changes
-* git stash does not create a patch file, but saves the changes in the git archive
+* ```git stash``` operates on changes to the work tree or index, not already committed changes
+* ```git stash``` does not create a patch file, but saves the changes in the git archive
 
-```git reset HEAD^``` can also be used to revert the last commit, however the changes are not saved to a patch file, they are either discarded or left in the index or work tree, depending on the options you give to '''git reset'''
+```git reset HEAD^``` can also be used to revert the last commit, however the changes are not saved to a patch file, they are either discarded or left in the index or work tree, depending on the options
 
-```stg``` or ```STGit```: a tool that can also be used to reorder or edit commits, the main differences are:
+``STGit```: a tool that can also be used to reorder or edit commits, the main differences are:
 * ```STGit``` has a much more complex set of command
-* it does not save patch files automatically
+* ```STGit``` does not save patch files automatically
 
 ## Installation
 
