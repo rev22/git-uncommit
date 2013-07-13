@@ -1,8 +1,8 @@
-git-uncommit: uncommit and recommit commands for Git, undo commit to patch file
+```git-uncommit```: uncommit and recommit commands for Git, undo commit to patch file
 
-Git uncommit does exactly what it says: it uncommits the last Git commit, saving the patch.
+```git-uncommit``` does exactly what it says: it uncommits the last Git commit, saving the patch.
 
-Git recommit applies back the last uncommitted patch; after the patch is applied, the patch file is deleted.
+```git-recommit``` applies back the last uncommitted patch; after the patch is applied, the patch file is deleted.
 
 ## Usage:
 
@@ -22,7 +22,7 @@ Uncommit: 2edf199-experimental-changes.patch
 
 This undoes your experimental commit and creates ```2edf199-experimental-changes.patch```.
 
-You can undo in this way any number of commits; ```git-recommit``` can be used to apply the patches
+You can undo in this way any number of commits; ```git-recommit``` can be used to apply the patches back.
 
 To apply the last uncommitted patch:
 
