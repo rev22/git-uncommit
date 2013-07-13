@@ -1,4 +1,4 @@
-```git-uncommit```: uncommit and recommit commands for Git, undo commit to patch file
+```git-uncommit```: ```uncommit``` and ```recommit``` commands for Git, undo and save commits to patch files
 
 ```git-uncommit``` does exactly what it says: it uncommits the last Git commit, saving the patch.
 
