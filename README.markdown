@@ -43,11 +43,11 @@ Patches can be readily edited, shared with others and applied in a new order.
 
 Patches are created using ```git format-patch```, and can be applied using ```git am```, in addition to ```git-uncommit```
 
-## Comparison with related git commands:
+## Comparison with related Git commands:
 
 ```git stash``` can sometimes be used for similar purposes as ```git-uncommit```, the differences are:
 * ```git stash``` operates on changes to the work tree or index, not already committed changes
-* ```git stash``` does not create a patch file, but saves the changes in the git archive
+* ```git stash``` does not create a patch file, but saves the changes in the Git archive
 
 ```git reset HEAD^``` can also be used to revert the last commit, however the changes are not saved to a patch file, they are either discarded or left in the index or work tree, depending on the options
 
