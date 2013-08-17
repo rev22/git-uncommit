@@ -1,4 +1,4 @@
-<b><code>git-uncommit</code></b>: <b>uncommit</b> and <b>recommit</b> commands for Git, undo and save Git commits to patch files
+<b><code>git-uncommit</code></b>: Undo git commits to patch files, and reapply them.
 
 <b><i>git-uncommit</i></b> does exactly what it says: it uncommits the last Git commit, saving the patch.
 
@@ -37,33 +37,33 @@ To run <b><i>git-recommit</i></b> with any saved patch file to reapply it in the
 $ git-recommit <patch-file>.patch
 ````
 
-## Patches
+## Patches files
 
-Patches can be readily edited, shared with others and applied in a new order.
+Patch files can be readily edited, shared with others and applied in a new order.
 
-Patches are created using ```git format-patch```, and thus can be applied using ```git am```.
+The patches are created using ```git format-patch```, and thus can also be applied using ```git am```.
 
-Patches are given readable file names extracted from your commit messages.
+Readable file names, extracted from your commit messages, are given to the patch files created.
 
 ## Comparison with related Git commands
 
-```git stash``` can sometimes be used for similar purposes as ```git-uncommit```, the differences are:
-* ```git stash``` operates on changes to the work tree or index, not already committed changes
-* ```git stash``` does not create a patch file, but saves the changes in the Git archive
+```git stash``` can sometimes be used for similar purposes as <i>git-uncommit</i>, the differences are:
+* <i>git stash</i> operates on changes to the work tree or index, not already committed changes
+* <i>git stash</i> does not create a patch file, but saves the changes in the Git archive
 
 ```git reset HEAD^``` can also be used to revert the last commit, however the changes are not saved to a patch file, they are either discarded or left in the index or work tree, depending on the options
 
-``STGit```: a tool that can also be used to reorder or edit commits, the main differences are:
-* ```STGit``` has a much more complex set of command
-* ```STGit``` does not save patch files automatically
+```STGit```: a tool that can also be used to reorder or edit commits, the main differences are:
+* <i>STGit</i> has a much more complex set of command
+* <i>STGit</i> does not save patch files automatically
 
 ## Installation
 
-<b><i>git-uncommit</i></b> and <b><i>git-recommit</i></b> are stand-alone shell scripts, simply requiring Git to be installed.
+<i>git-uncommit</i> and <i>git-recommit</i> are stand-alone shell scripts, simply requiring Git to be installed.
 
-In a Unix or Linux system, you can quickly install <b><i>git-recommit</i></b> and <b><i>git-uncommit</i></b> by copying the files to ```/usr/local/bin```.
+In a Unix or Linux system, you can quickly install ```git-recommit``` and ```git-uncommit``` by copying the files to ```/usr/local/bin```.
 
-Installing ```uni2ascii``` will help <b><i>git-uncommit</i></b> create better filenames for patches, when your commit messages have non-ascii characters.
+Installing ```uni2ascii``` will help <i>git-uncommit</i> create better filenames for patches, when your commit messages have non-ascii characters.
 
 ## Author and licensing terms
 
