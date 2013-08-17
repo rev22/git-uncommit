@@ -1,8 +1,8 @@
 <b><code>git-uncommit</code></b>: <b>uncommit</b> and <b>recommit</b> commands for Git, undo and save Git commits to patch files
 
-```git-uncommit``` does exactly what it says: it uncommits the last Git commit, saving the patch.
+<b><i>git-uncommit</i></b> does exactly what it says: it uncommits the last Git commit, saving the patch.
 
-```git-recommit``` applies back the last uncommitted patch; after the patch is applied, the patch file is deleted.
+<b><i>git-recommit</i></b> applies back the last uncommitted patch; after the patch is applied, the patch file is deleted.
 
 ## Example usage
 
@@ -12,7 +12,7 @@ Imagine you have just committed experimental changes to your branch, after much 
 $ git-commit -m "Experimental changes"
 ````
 
-You are unsatisfied with the result, but do not want to discard the work, so you run ```git-uncommit```
+You are unsatisfied with the result, but do not want to discard the work, so you run <b><i>git-uncommit</i></b>
 
 
 ````sh
@@ -20,9 +20,9 @@ $ git-uncommit
 Uncommit: 2edf199-experimental-changes.patch
 ````
 
-This undoes your experimental commit and creates ```2edf199-experimental-changes.patch```.
+This undoes your experimental commit and creates <b><i>2edf199-experimental-changes.patch</i></b>.
 
-You can undo in this way any number of commits; ```git-recommit``` can be used to apply the patches back.
+You can undo in this way any number of commits; <b><i>git-recommit</i></b> can be used to apply the patches back.
 
 To apply the last uncommitted patch:
 
@@ -31,7 +31,7 @@ To apply the last uncommitted patch:
 $ git-recommit
 ````
 
-To run ```git-recommit``` with any saved patch file to reapply it in the order you want:
+To run <b><i>git-recommit</i></b> with any saved patch file to reapply it in the order you want:
 
 ````sh
 $ git-recommit <patch-file>.patch
@@ -41,7 +41,7 @@ $ git-recommit <patch-file>.patch
 
 Patches can be readily edited, shared with others and applied in a new order.
 
-Patches are created using ```git format-patch```, and can be applied using ```git am```, in addition to ```git-uncommit```
+Patches are created using ```git format-patch```, and thus can be applied using ```git am```.
 
 Patches are given readable file names extracted from your commit messages.
 
@@ -59,11 +59,11 @@ Patches are given readable file names extracted from your commit messages.
 
 ## Installation
 
-```git-uncommit``` and ```git-recommit``` are stand-alone shell scripts, simply requiring Git to be installed.
+<b><i>git-uncommit</i></b> and <b><i>git-recommit</i></b> are stand-alone shell scripts, simply requiring Git to be installed.
 
-In a Unix or Linux system, you can quickly install ```git-recommit``` and ```git-uncommit``` by copying the files to ```/usr/local/bin```.
+In a Unix or Linux system, you can quickly install <b><i>git-recommit</i></b> and <b><i>git-uncommit</i></b> by copying the files to ```/usr/local/bin```.
 
-Installing ```uni2ascii``` will help ```git-uncommit``` create better filenames for patches, when your commit messages have non-ascii characters.
+Installing ```uni2ascii``` will help <b><i>git-uncommit</i></b> create better filenames for patches, when your commit messages have non-ascii characters.
 
 ## Author and licensing terms
 
