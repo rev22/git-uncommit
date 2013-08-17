@@ -29,8 +29,16 @@ die() {
     exit 1
 }
 
+toascii() {
+    if which uni2ascii >/dev/null 2>&1; then
+	uni2ascii -qeB
+    else
+	cat
+    fi
+}
+
 namecommit() {
-    (git show "$1"|git patch-id|head --bytes=7; git show "$1"|head -n5|tail -n1)|sed -E "; s/[^a-zA-Z0-9]+/ /g; s/^ //; s/ $//; s/ /-/g"|head --bytes=40|tr A-Z a-z|sed "s/-$//"
+    (git show "$1"|git patch-id|head --bytes=7; git show "$1"|head -n5|tail -n1)|toascii|sed -E "; s/[^a-zA-Z0-9]+/ /g; s/^ //; s/ $//; s/ /-/g"|head --bytes=40|tr A-Z a-z|sed "s/-$//"
 }
 
 branchname() {

@@ -43,6 +43,8 @@ Patches can be readily edited, shared with others and applied in a new order.
 
 Patches are created using ```git format-patch```, and can be applied using ```git am```, in addition to ```git-uncommit```
 
+Patches are given readable file names extracted from your commit messages.
+
 ## Comparison with related Git commands
 
 ```git stash``` can sometimes be used for similar purposes as ```git-uncommit```, the differences are:
@@ -60,6 +62,8 @@ Patches are created using ```git format-patch```, and can be applied using ```gi
 ```git-uncommit``` and ```git-recommit``` are stand-alone shell scripts, simply requiring Git to be installed.
 
 In a Unix or Linux system, you can quickly install ```git-recommit``` and ```git-uncommit``` by copying the files to ```/usr/local/bin```.
+
+Installing ```uni2ascii``` will help ```git-uncommit``` create better filenames for patches, when your commit messages have non-ascii characters.
 
 ## Author and licensing terms
 
