@@ -14,8 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-set -e
-
 println() {
     printf "%s\n" "$*"
 }
@@ -49,6 +47,42 @@ selectbranch() {
   git symbolic-ref HEAD refs/heads/"$1"
 }
 
+noerr() {
+    "$@" 2>/dev/null
+}
+
+# Directory where to save patches, can be absolute or relative to top-level of the worktree
+patchdir="$(noerr git config --path --local --get git.uncommit.patchdir)"
+
+# Top level of the work tree, if possible relative to current directory
+topleveldir="$(noerr git rev-parse --show-cdup || noerr git rev-parse --show-toplevel)"
+
+# Current directory, relative to top level of work tree
+prefixdir="$(noerr git rev-parse --show-prefix)"
+
+if [ -n "$patchdir" ]; then
+    patchdir="$( ([ -n "$topleveldir" ] && cd "$topleveldir") && cd "$patchdir" && pwd)"
+fi
+set -e
+
+while case "$1" in
+    --patchdir) shift; patchdir="$1"; shift ;;
+    --) shift; false ;;
+    --*) die "Unknown option: $1" ;;
+    *) false ;;
+esac; do :; done
+
+withfinalslash() {
+    if [ -z "$1" ]; then return; fi
+    case "$1" in
+	*/)  println "$1" ;;
+	*)   println "$1" ;;
+    esac
+}
+patchdir="$(withfinalslash "$patchdir")"
+topleveldir="$(withfinalslash "$topleveldir")"
+prefixdir="$(withfinalslash "$prefixdir")"
+
 f="$(namecommit HEAD)"
 [ -z "f" ] && die "Internal error: Could not create patch name"
 f="$f".patch
@@ -57,13 +91,15 @@ f="$f".patch
 # t="$(git rev-parse --show-toplevel)"
 # cd "$t"
 
-git format-patch --binary -M70% -C70% -N -1 --stdout >"$f"
+git format-patch --binary -M70% -C70% -N -1 --stdout >"$patchdir""$f"
+
+if [ -z "$patchdir" ]; then f="$prefixdir$f"; fi
 
 b="$(branchname)"
 
 git checkout --quiet --detach HEAD^
 
 println "Uncommit: $f"
-println "Uncommit: $f" >>.uncommitted-patches
+println "Uncommit: $f" >>"$topleveldir".uncommitted-patches
 
 [ -n "$b" ] && selectbranch "$b" && git reset --soft HEAD^
