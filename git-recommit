@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Copyright (c) 2012, 2013 Michele Bini <michele.bini@gmail.com>
+# Copyright (c) 2012, 2013, 2014 Michele Bini <michele.bini@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the version 3 of the GNU General Public License
@@ -30,24 +30,81 @@ die() {
     exit 1
 }
 
+noerr() {
+    "$@" 2>/dev/null || true
+}
+
+# Directory where to save patches, can be absolute or relative to top-level of the worktree
+patchdir="$(noerr git config --path --local --get git.uncommit.patchdir)"
+
+# Top level of the work tree, if possible relative to current directory
+topleveldir="$(noerr git rev-parse --show-cdup || noerr git rev-parse --show-toplevel)"
+
+# Current directory, relative to top level of work tree
+prefixdir="$(noerr git rev-parse --show-prefix)"
+
+if [ -n "$patchdir" ]; then
+    patchdir="$( ([ -n "$topleveldir" ] && cd "$topleveldir") && cd "$patchdir" && pwd)"
+fi
+
+withfinalslash() {
+    if [ -z "$1" ]; then return; fi
+    case "$1" in
+	*/)  println "$1" ;;
+	*)   println "$1" ;;
+    esac
+}
+
+nocommit=""
+while case "$1" in
+    --patchdir) shift; patchdir="$1"; shift ;;
+    --no-commit) shift; nocommit=1 ;;
+    --) shift; false ;;
+    --*) die "Unknown option: $1" ;;
+    *) false ;;
+esac; do :; done
+
 f="$1"
 
+patchdir="$(withfinalslash "$patchdir")"
+topleveldir="$(withfinalslash "$topleveldir")"
+prefixdir="$(withfinalslash "$prefixdir")"
+
+u="$topleveldir".uncommitted-patches
+
 if [ -z "$f" ]; then
-    if [ -f .uncommitted-patches ]; then
-	f="$(tail -n1 .uncommitted-patches|sed "s/^Uncommit: //")"
-	sed -i "$ d" .uncommitted-patches
+    if [ -f "$u" ]; then
+	f="$(tail -n1 "$u"|sed "s/^Uncommit: //")"
+	sed -i "$ d" "$u"
     fi
 
     # Delete .uncommitted-patches if it's empty
-    if [ -e .uncommitted-patches ]; then
-	[ -s .uncommitted-patches ] || rm .uncommitted-patches
+    if [ -e "$u" ]; then
+	[ -s "$u" ] || rm "$u"
     fi
 fi
 
+# This should only be performed in interactive mode
 if [ -z "$f" ]; then
+    # yn "Cannot find a patch to apply.  Look for the most recent one?"
     f="$(ls -R --sort=time|grep "[.]patch$"|head -n1)"
 fi
 
-[ -z "$f" ] && die "No patch files found!"
+if [ -n "$patchdir" ]; then
+    f="$patchdir""$(basename "$f")"
+fi
+
+if [ -z "$f" ]; then
+    die "No patch files found!"
+fi
+
+if [ -n "$nocommit" ]; then
+    prehead="$(git rev-parse HEAD)"
+fi
 
 git am -3 "$f" && rm "$f"
+
+if [ -n "$nocommit" ]; then
+    git reset --soft "$prehead"
+fi
+
