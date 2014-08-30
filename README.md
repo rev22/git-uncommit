@@ -9,14 +9,14 @@
 Imagine you have just committed experimental changes to your branch, after much mork.
 
 ````sh
-$ git-commit -m "Experimental changes"
+$ git commit -m "Experimental changes"
 ````
 
 You are unsatisfied with the result, but do not want to discard the work, so you run <b><i>git-uncommit</i></b>
 
 
 ````sh
-$ git-uncommit
+$ git uncommit
 Uncommit: 2edf199-experimental-changes.patch
 ````
 
@@ -28,16 +28,16 @@ To apply the last uncommitted patch:
 
 
 ````sh
-$ git-recommit
+$ git recommit
 ````
 
 To run <b><i>git-recommit</i></b> with any saved patch file to reapply it in the order you want:
 
 ````sh
-$ git-recommit <patch-file>.patch
+$ git recommit <patch-file>.patch
 ````
 
-## Patches files
+## Patch files
 
 Patch files can be readily edited, shared with others and applied in a new order.
 
@@ -68,7 +68,7 @@ Installing ```uni2ascii``` will help <i>git-uncommit</i> create better filenames
 ## Author and licensing terms
 
 ````
-Copyright (c) 2012, 2013 Michele Bini <michele.bini@gmail.com>
+Copyright (c) 2012, 2013, 2014 Michele Bini <michele.bini@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the version 3 of the GNU General Public License
