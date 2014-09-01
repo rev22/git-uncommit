@@ -92,6 +92,11 @@ fi
 
 if [ -n "$patchdir" ]; then
     f="$patchdir""$(basename "$f")"
+else
+    case "$f" in
+	/*)  : ;;
+	*)   f="$topleveldir"/"$f" ;;
+    esac
 fi
 
 if [ -z "$f" ]; then
