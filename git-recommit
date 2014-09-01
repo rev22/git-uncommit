@@ -65,6 +65,7 @@ while case "$1" in
 esac; do :; done
 
 f="$1"
+current_dir=1
 
 patchdir="$(withfinalslash "$patchdir")"
 topleveldir="$(withfinalslash "$topleveldir")"
@@ -75,6 +76,7 @@ u="$topleveldir".uncommitted-patches
 if [ -z "$f" ]; then
     if [ -f "$u" ]; then
 	f="$(tail -n1 "$u"|sed "s/^Uncommit: //")"
+	current_dir=""
 	sed -i "$ d" "$u"
     fi
 
@@ -88,11 +90,12 @@ fi
 if [ -z "$f" ]; then
     # yn "Cannot find a patch to apply.  Look for the most recent one?"
     f="$(ls -R --sort=time|grep "[.]patch$"|head -n1)"
+    current_dir=1
 fi
 
 if [ -n "$patchdir" ]; then
     f="$patchdir""$(basename "$f")"
-else
+elif [ -z "$current_dir" ]; then
     case "$f" in
 	/*)  : ;;
 	*)   f="$topleveldir"/"$f" ;;
