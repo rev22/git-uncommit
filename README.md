@@ -6,7 +6,7 @@
 
 ## Example usage
 
-Imagine you have just committed experimental changes to your branch, after much mork.
+Imagine you have just committed experimental changes to your branch, after much work.
 
 ````sh
 $ git commit -m "Experimental changes"
